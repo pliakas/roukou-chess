@@ -6,8 +6,8 @@ public class ChessApplication
     {
         if( args.length != 2 )
         {
-            System.out.println( "Must inlcude start position and end position and actor." );
-            System.out.println( "Usage is: java ChessApplication startPos endPos actor" );
+            System.out.println( "Must include start position & end position." );
+            System.out.println( "Usage is: java ChessApplication E1 G7" );
         }
         else
         {
