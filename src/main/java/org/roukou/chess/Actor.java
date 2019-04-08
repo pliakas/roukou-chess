@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface Actor
 {
-    List<Position> availableMoves( Position position );
+    List<Position> adjacentPositions( Position position );
 }

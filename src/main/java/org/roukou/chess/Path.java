@@ -5,58 +5,58 @@ import java.util.stream.Collectors;
 
 public class Path
 {
-    private Position startPosition;
-    private Position endPosition;
+    private Position start;
+    private Position destination;
     private Actor actor;
 
-    public Path( Position startPosition, Position endPosition, Actor pieceType )
+    public Path( Position start, Position destination, Actor actor )
     {
-        this.startPosition = startPosition;
-        this.endPosition = endPosition;
-        this.actor = pieceType;
+        this.start = start;
+        this.destination = destination;
+        this.actor = actor;
     }
 
     public String findPath( int numberOfMoves )
     {
-        HashMap<Position, Position> parentPosition = new HashMap<>();
-        Queue<Position> positionQueue = new LinkedList<>();
+        HashMap<Position, Position> nodes = new HashMap<>();
+        Queue<Position> queue = new LinkedList<>();
 
         //start
-        parentPosition.put( startPosition, null );
-        positionQueue.add( startPosition );
+        nodes.put( start, null );
+        queue.add( start );
 
         //find all possible paths
-        while( Objects.nonNull(positionQueue.peek()) )
+        while( Objects.nonNull(queue.peek()) )
         {
-            Position currentPostion = positionQueue.poll();
+            Position current = queue.poll();
 
-            if( currentPostion.equals( endPosition ) )
+            if( current.equals( destination ) )
             {
                 break;
             }
 
-           actor.availableMoves( currentPostion ).forEach(
-                adjacentPosition -> {
-                    if( !parentPosition.containsKey( adjacentPosition ) )
+           actor.adjacentPositions( current ).forEach(
+                next -> {
+                    if( !nodes.containsKey( next ) )
                     {
-                        parentPosition.put( adjacentPosition, currentPostion );
-                        positionQueue.add( adjacentPosition );
+                        nodes.put( next, current );
+                        queue.add( next );
                     }
                 }
             );
         }
 
         //find shortest path
-        Position currentPosition = endPosition;
+        Position currentPosition = destination;
         Deque<Position> shortestPath = new ArrayDeque<>();
 
-        while( Objects.nonNull( parentPosition.get( currentPosition ) ) )
+        while( Objects.nonNull( nodes.get( currentPosition ) ) )
         {
             shortestPath.addFirst( currentPosition );
-            currentPosition = parentPosition.get( currentPosition );
+            currentPosition = nodes.get( currentPosition );
         }
 
-        shortestPath.addFirst( startPosition );
+        shortestPath.addFirst( start );
 
         if( shortestPath.size() <= numberOfMoves + 1 )
         {

@@ -15,12 +15,12 @@ class KnightTest
         Knight knight = new Knight();
 
         // A1 -> C2, B3
-        var result = knight.availableMoves( Helper.convertStringCoordinateToPosition( "A1"  ) );
+        var result = knight.adjacentPositions( Helper.convertStringCoordinateToPosition( "A1"  ) );
         assertTrue( result.stream().anyMatch( entry -> entry.toString().equalsIgnoreCase( "C2" )) );
         assertTrue( result.stream().anyMatch( entry -> entry.toString().equalsIgnoreCase( "B3" )) );
 
         // E1 -> C2, D3, F3, G2
-        result = knight.availableMoves( Helper.convertStringCoordinateToPosition( "E1" ) );
+        result = knight.adjacentPositions( Helper.convertStringCoordinateToPosition( "E1" ) );
         assertTrue( result.stream().anyMatch( entry -> entry.toString().equalsIgnoreCase( "C2" )) );
         assertTrue( result.stream().anyMatch( entry -> entry.toString().equalsIgnoreCase( "D3" )) );
         assertTrue( result.stream().anyMatch( entry -> entry.toString().equalsIgnoreCase( "F3" )) );

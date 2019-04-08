@@ -6,22 +6,22 @@ import java.util.List;
 public class Knight implements Actor
 {
     @Override
-    public List<Position> availableMoves( Position position )
+    public List<Position> adjacentPositions( Position position )
     {
         List<Position> positions = new ArrayList<>();
-        int[] moves = { -2, -1, 1, 2 };
+        int[] availableMoves = { -2, -1, 1, 2 };
 
-        for( int xMove : moves )
+        for( int xAxis : availableMoves )
         {
-            for( int yMove : moves )
+            for( int yAxis : availableMoves )
             {
-                if( Math.abs( xMove ) != Math.abs( yMove ) )
+                if( Math.abs( xAxis ) != Math.abs( yAxis ) )
                 {
-                    if( Helper.isValidCoordinate( position.getxCoord() + xMove, position.getyCoord() + yMove ) )
+                    if( Helper.isValidCoordinate( position.getxCoord() + xAxis, position.getyCoord() + yAxis ) )
                     {
                         positions.add( new Position.Builder().with( coordinates -> {
-                                coordinates.xCoord = position.getxCoord() + xMove;
-                                coordinates.yCoord = position.getyCoord() + yMove;
+                                coordinates.xCoord = position.getxCoord() + xAxis;
+                                coordinates.yCoord = position.getyCoord() + yAxis;
 
                             } ).build() );
                     }
